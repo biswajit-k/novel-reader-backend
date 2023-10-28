@@ -1,4 +1,4 @@
-## Novel Reader(server)
+## Novel Reader(backend)
 
 ### Steps
 1. Clone the repo.
@@ -15,5 +15,7 @@
 * `MONGO_PASSWORD` - mongoDB password of database 
 * `MONGO_CLUSTER` - mongoDB cluster name of database
 
+
+Find the frontend [here](https://github.com/con-artist/Novel-Reader)
 
 Please let us know if there are any issues in above steps. Happy coding!
