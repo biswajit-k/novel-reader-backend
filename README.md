@@ -15,6 +15,8 @@
 * `MONGO_PASSWORD` - mongoDB password of database 
 * `MONGO_CLUSTER` - mongoDB cluster name of database
 
+### Docs
+Start the server. Docs at `/api/docs`
 
 Find the frontend [here](https://github.com/con-artist/Novel-Reader)
 
