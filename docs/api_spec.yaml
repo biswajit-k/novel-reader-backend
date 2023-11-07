@@ -1,0 +1,208 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'Novel Reader API'
+  description: API for accessing novel reader app
+
+servers:
+  - url: http://localhost:5000
+
+paths:
+  /api/novels:
+    get:
+      summary: Returns a list of novels
+      parameters:
+        - name: page
+          in: query
+          description: Pagination page number for novels. Returns empty list `[]` if out of bound page provided
+          schema:
+            type: integer
+            default: 1
+
+        - name: limit
+          in: query
+          description: Number of novels per page
+          schema:
+            type: integer
+            default: 5
+
+        - name: genre
+          in: query
+          schema:
+            $ref: '#/components/schemas/NovelGenre'
+
+        - name: sort_by
+          in: query
+          description: >
+            Novels sort order
+              * `popular` - Rating (Descending)
+              * `new` - Rating (Descending)
+              * `latest_updated` - Last Updated (Descending)
+          schema:
+            type: string
+            enum: ["popular", "new", "latest_updated"]
+          
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: 
+                    type: array
+                    items: 
+                      $ref: '#/components/schemas/NovelCover'
+              
+  /api/novels/{novel_slug}:
+    get:
+      summary: Novel Details
+      parameters:
+      - name: novel_slug
+        in: path
+        required: true
+        description: |
+          Novel slug is novel name with all lowercase with spaces replaced with dashes. 
+          For example-
+
+          Novel: Title - 4
+          
+          Slug: title-4
+
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Novel'
+        '404':
+          description: novel not found
+          
+
+
+  /api/heroes:
+    get:
+      summary: List of covers for hero section
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Hero'                
+
+components:
+  schemas:
+    NovelGenre:
+      type: string
+      enum: ["action", "adventure", "romance", "fantasy", "comedy", "sci-fi"]
+      description: Genre of the novels
+
+    NovelType:
+      type: string
+      enum: ["manga", "web novel", "manhwa", "comic"]
+      description: Novel type
+
+    NovelStatus:
+      type: string
+      enum: ["ongoing", "completed", "dropped"]
+      description: Novel status
+
+    Novel:
+      type: object
+      description: Complete Novel description
+      properties:
+        title:
+          type: string
+          description: titles are stored as lowecase
+          example: title 2
+        description:
+          type: string
+          example: This is the description of novel
+        image_url:
+          type: string
+          example: https://example.com/sample.png
+        created_at:
+          type: string
+          format: date-time
+          example: 2022-04-12T10:12:00Z
+        updated_at:
+          type: string
+          format: date-time
+          example: 2023-11-06T15:30:00Z
+        rating:
+          type: number
+          format: float
+          example: 4.37
+        author:
+          type: string
+          example: Author 1
+        translator:
+          type: string
+          example: Translator 1
+        genre:
+          type: array
+          items:
+              $ref: '#/components/schemas/NovelGenre'
+        status:
+            $ref: '#/components/schemas/NovelStatus'
+        type:
+            $ref: '#/components/schemas/NovelType'
+        chapters:
+          type: array
+          items:
+            type: string
+
+    NovelCover:
+      type: object
+      description: Basic details of novel
+      properties:
+        title:
+          type: string
+          example: Title 1
+        image_url:
+          type: string
+          example: https://example.com/sample.png
+        rating:
+          type: number
+          format: float
+          example: 4.37
+        status:
+            $ref: '#/components/schemas/NovelStatus'
+    Hero:
+      type: object
+      description: cover object for hero section
+      properties:
+        title:
+          example: Omniscent
+        status:
+          schema:
+            $ref: '#/components/schemas/NovelStatus'
+          example: completed
+        bg_url: 
+          example: https://example.com/bg.png
+        character_url:
+          example: https://example.com/character.png
+        description:
+          example: this is the hero description
+
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          description: A human readable error message
+          type: string

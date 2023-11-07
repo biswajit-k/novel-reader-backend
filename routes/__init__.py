@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-router = Blueprint('router', __name__)
+router = Blueprint('router', __name__, url_prefix='/api')
 
 # only routes of below modules will be known to router
 # this syntax is just like we import views inside app at the last, except we then register
