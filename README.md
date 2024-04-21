@@ -25,8 +25,8 @@ read, bookmark, comment and engage with other community members. This is the bac
 * `MONGO_PASSWORD` - mongoDB password of database 
 * `MONGO_CLUSTER` - mongoDB cluster name of database
 
-### Docs
-Start the server. Docs at `/api/docs`
+### Swagger Docs
+Docs are present at `/api/docs`
 
 Find the frontend [here](https://github.com/con-artist/Novel-Reader)
 
