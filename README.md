@@ -1,6 +1,16 @@
-## Novel Reader(backend)
+## Novel Reader App(backend)
+A novel reader app where you can find tons of books ranging from Manga, manhwa and comic. You can
+read, bookmark, comment and engage with other community members. This is the backend part of it.
 
-### Steps
+![image](https://github.com/biswajit-k/novel-reader-backend/assets/76483357/b5d1a2d3-aec1-493c-a636-8f4a4664a9db)
+
+
+### Tech Stack
+  - Flask
+  - MongoDB
+  - Swagger
+
+### Installation Steps
 1. Clone the repo.
 4. check python version and virtual env - `python --version`
 5. Create virtual env `python -m venv manga_env`
